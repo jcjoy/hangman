@@ -2,7 +2,7 @@ use rand::Rng;
 use std::fs;
 use std::vec::Vec;
 
-trait HangmanDictionary {
+pub trait HangmanDictionary {
     fn random_word(&self) -> String;
     fn all_words(&self) -> Vec<String>;
 }
@@ -14,7 +14,7 @@ pub struct SimpleDictionary {
 }
 
 impl SimpleDictionary {
-    fn new(filename: String) -> SimpleDictionary {
+    pub fn new(filename: String) -> SimpleDictionary {
         let wordstring = fs::read_to_string(filename).expect("Something went wrong with the read!");
         let words: Vec<String> = wordstring
             .split_whitespace()

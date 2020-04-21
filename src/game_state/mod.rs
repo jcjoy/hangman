@@ -1,18 +1,19 @@
 use std::collections::HashSet;
 
-pub struct game_state {
+/*pub struct game_state {
     game_state_impl: GameState,
 }
+*/
 
 #[derive(Debug, PartialEq)]
-struct GameState {
+pub struct GameState {
     SecretWord: String,
     GuessedLetters: HashSet<char>,
     GuessesRemaining: i16,
 }
 
 impl GameState {
-    fn new(secret_word: String) -> GameState {
+    pub fn new(secret_word: String) -> GameState {
         GameState {
             SecretWord: secret_word,
             GuessedLetters: HashSet::new(),
@@ -20,14 +21,14 @@ impl GameState {
         }
     }
 
-    fn evaluate_guess(&mut self, guess: char) {
+    pub fn evaluate_guess(&mut self, guess: char) {
         if !self.SecretWord.contains(guess) {
             self.GuessesRemaining -= 1;
         }
         self.GuessedLetters.insert(guess);
     }
 
-    fn get_disp_str(&self) -> String {
+    pub fn get_disp_str(&self) -> String {
         let mut disp_str = String::new();
         for c in self.SecretWord.chars() {
             if self.GuessedLetters.contains(&c) {

@@ -1,6 +1,6 @@
 use std::io::stdin;
 
-trait PlayerInterface {
+pub trait PlayerInterface {
     fn notify(&self, message: &String) -> ();
     fn query(&self, message: &String) -> String;
 }
@@ -10,7 +10,7 @@ pub struct CommandLinePlayer {
 }
 
 impl CommandLinePlayer {
-    fn new(player_id: String) -> CommandLinePlayer {
+    pub fn new(player_id: String) -> CommandLinePlayer {
         CommandLinePlayer {
             PlayerId: player_id,
         }
