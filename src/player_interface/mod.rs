@@ -1,8 +1,8 @@
 use std::io::stdin;
 
 pub trait PlayerInterface {
-    fn notify(&self, message: &String) -> ();
-    fn query(&self, message: &String) -> String;
+    fn notify(&self, message: &str) -> ();
+    fn query(&self, message: &str) -> char;
 }
 
 pub struct CommandLinePlayer {
@@ -18,23 +18,30 @@ impl CommandLinePlayer {
 }
 
 impl PlayerInterface for CommandLinePlayer {
-    fn notify(&self, message: &String) -> () {
+    fn notify(&self, message: &str) -> () {
         println!("{}", message);
     }
 
-    fn query(&self, message: &String) -> String {
+    fn query(&self, message: &str) -> char {
         println!("{}", message);
-        let mut response = String::new();
-        stdin()
-            .read_line(&mut response)
-            .expect("Could not read line");
-        response
+        loop {
+            let mut buf: String = String::new();
+            stdin().read_line(&mut buf).expect("Could not read line");
+            if buf.chars().count() == 2 {
+                match buf.chars().next() {
+                    Some(x) => return x,
+                    _ => {println!("Please input a valid character!")},
+                }
+            } else {
+                println!("Please only input one character at a time!");
+            }
+        }
     }
 }
 
 fn main() {
     let interface = CommandLinePlayer::new("Bob".to_string());
     interface.notify(&"Trying this out".to_string());
-    let response = interface.query(&"What's your answer?".to_string());
+    let response = interface.query(&"What's your answer?");
     println!("RESPONSE: {}", response);
 }
