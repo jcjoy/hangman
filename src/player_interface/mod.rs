@@ -27,6 +27,9 @@ impl PlayerInterface for CommandLinePlayer {
         loop {
             let mut buf: String = String::new();
             stdin().read_line(&mut buf).expect("Could not read line");
+            // Check to see if 2 chars are entered.
+            // This is sort of a hack to get around the fact that
+            // newline will be read by stdin as well.
             if buf.chars().count() == 2 {
                 match buf.chars().next() {
                     Some(x) => return x,
